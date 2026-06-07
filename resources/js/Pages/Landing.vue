@@ -61,7 +61,7 @@ const getLocation = (event) => {
     <!-- HERO SECTION -->
     <section class="relative overflow-hidden">
 
-      <!-- 🌈 ANIMATED GRADIENT BACKGROUND -->
+      <!--  ANIMATED GRADIENT BACKGROUND -->
       <div class="absolute inset-0 bg-gradient-animate"></div>
 
       <!-- soft overlay noise/glow -->
@@ -206,7 +206,7 @@ const getLocation = (event) => {
       </div>
     </section>
 
-    <!-- EVENT GRID (STRIPE STYLE) -->
+    <!-- EVENT GRID -->
     <section class="max-w-6xl mx-auto px-6 py-16">
 
       <div class="flex items-end justify-between mb-8">
