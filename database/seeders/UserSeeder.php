@@ -16,8 +16,9 @@ class UserSeeder extends Seeder
                 'name' => 'Super Admin',
                 'role' => 'adminsuper',
                 'email_verified_at' => now(),
-                'password' => Hash::make('password123'),
+                'password' => Hash::make('ahmad'),
                 'is_active' => true,
+                
                 'pin' => '123456',
             ]
         );
