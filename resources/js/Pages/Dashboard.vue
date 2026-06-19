@@ -1,13 +1,13 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import { Head, usePage, router } from '@inertiajs/vue3'
+import { ref } from 'vue'
 
 import SuperAdminSection from '@/Components/Dashboard/SuperAdminSection.vue'
 import AdminSection from '@/Components/Dashboard/AdminSection.vue'
 import UserSection from '@/Components/Dashboard/UserSection.vue'
 
 const page = usePage()
-
 const user = page.props.auth?.user ?? {}
 
 const props = defineProps({
@@ -27,203 +27,105 @@ const goScan = () => {
   router.visit('/scan')
 }
 
-import { QrCode, ScanQrCode } from 'lucide-vue-next'
+import { 
+  ScanQrCode, Sparkles, CalendarDays, 
+  Layers, ShieldAlert, CheckCircle2, ArrowRight
+} from 'lucide-vue-next'
 </script>
 
 <template>
-  <Head title="Dashboard" />
+  <Head title="Dashboard Utama SIMAKU" />
 
   <AuthenticatedLayout>
-
     <template #header>
-      <div class="flex items-center justify-between">
-        <h2 class="text-2xl font-bold text-gray-800">
-          Dashboard
-        </h2>
+      <div class="flex items-center justify-between font-sans">
+        <div>
+          <h2 class="text-xl font-bold tracking-tight text-slate-900 md:text-2xl">
+            Pusat Kendali Sistem
+          </h2>
+          <p class="text-xs text-slate-500 mt-0.5 hidden md:block">Manajemen portofolio kegiatan civitas akademika UIN.</p>
+        </div>
       </div>
     </template>
 
-    <div class="relative min-h-screen overflow-hidden">
-
-      <div
-        class="absolute inset-0 bg-repeat bg-[length:450px_450px] opacity-50"
-        style="background-image: url('/images/bg-6.png')"
-      ></div>
-
-      <div class="absolute inset-0 bg-white/70"></div>
-
-      <!-- optional depth -->
-      <div class="absolute inset-0 backdrop-blur-[2px]"></div>
-
-
-      <!-- CONTENT -->
-      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-8 space-y-6">
-
-        <!-- HERO -->
-        <section class="relative overflow-hidden rounded-2xl shadow-lg">
-
-          <div class="bg-gradient-animate p-6 md:p-10 text-white relative overflow-hidden">
-  
-            <!-- overlay biar lebih soft -->
-            <div class="absolute inset-0 bg-black/10"></div>
-
-            <!-- ilustrasi -->
-            <img
-              src="/images/logo-amira.png"
-              class="absolute right-0 bottom-0 w-40 md:w-64 opacity-20"
-            />
-
-            <!-- content -->
-            <div class="relative z-10">
-              <h3 class="text-xl md:text-3xl font-bold">
-                Selamat datang, {{ user.name }} 👋
-              </h3>
-
-              <p class="mt-2 text-white/80 text-sm md:text-base">
-                {{ greeting?.text ?? 'AMIRA (Aplikasi Manajemen Informasi & Registrasi Acara)' }}
-              </p>
-
-              <p v-if="greeting?.author" class="text-xs mt-2 opacity-70">
-                — {{ greeting.author }}
-              </p>
+    <div class="relative min-h-screen bg-[#F8FAFC]">
+      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6 font-sans">
+        
+        <section class="relative overflow-hidden bg-white border border-slate-200/80 rounded-2xl p-6 md:p-8 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div class="max-w-2xl">
+            <div class="inline-flex items-center gap-1.5 text-xs font-semibold text-[#006633] bg-[#006633]/5 px-2.5 py-1 rounded-md mb-3 border border-[#006633]/10">
+              <Sparkles class="w-3.5 h-3.5 text-[#D4AF37] fill-[#D4AF37]" /> SIMAKU Academic Hub
             </div>
-
-            <div class="absolute -top-10 -left-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
-
-            <span class="inline-block mt-3 px-3 py-1 bg-white/20 backdrop-blur rounded-full text-xs">
-              Dashboard Overview
-            </span>
-
+            <h3 class="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900 leading-none">
+              Assalamualaikum, {{ user.name }} 👋
+            </h3>
+            <p class="mt-2 text-sm text-slate-500 leading-relaxed">
+              {{ greeting?.text ?? 'SIMAKU (Sistem Informasi Manajemen Kegiatan UIN) — Selamat beraktivitas di ekosistem digital kampus premium.' }}
+            </p>
+            <p v-if="greeting?.author" class="text-xs font-bold text-[#008751] mt-2">
+              — {{ greeting.author }}
+            </p>
+          </div>
+          
+          <div class="bg-slate-50 border border-slate-100 px-4 py-3 rounded-xl flex items-center gap-3 text-xs font-medium text-slate-600 self-stretch md:self-auto justify-center">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+            SIAKAD Account Active
           </div>
         </section>
 
-          <!-- ===================== -->
-          <!-- PRESENSI QR -->
-          <!-- ===================== -->
-          <section
-            v-if="role === 'user'"
-            class="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white rounded-2xl shadow-lg p-6 flex flex-col md:flex-row items-center justify-between gap-4"
-          >
-            <!-- LEFT -->
-            <div>
-              <h3 class="text-xl md:text-2xl font-bold">
-               Presensi Kehadiran
-              </h3>
-              <p class="text-sm opacity-90 mt-1">
-                Scan QR untuk melakukan check-in ke event yang sedang berlangsung
-              </p>
-            </div>
-            <!-- RIGHT -->
-            <div class="flex gap-3">
-              <button
-                @click="goScan"
-                class="bg-white text-emerald-600 font-semibold px-5 py-3 rounded-xl shadow hover:bg-gray-100 transition flex items-center gap-2"
-              >
-                <ScanQrCode class="w-5 h-5" />
-                <span>Scan Sekarang</span>
-              </button>
-            </div>
-          </section>
+        <section v-if="role === 'user'" class="bg-gradient-to-r from-[#006633] to-[#008751] text-white rounded-2xl shadow-lg shadow-[#006633]/10 p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="text-center sm:text-left">
+            <h3 class="text-lg md:text-xl font-bold tracking-tight">Presensi Kehadiran Terenkripsi</h3>
+            <p class="text-xs opacity-80 mt-1">Lakukan check-in presensi seminar/kegiatan secara instan langsung lewat kamera gawai Anda.</p>
+          </div>
+          <button @click="goScan" class="w-full sm:w-auto bg-white text-[#006633] font-bold px-5 py-3 rounded-xl shadow-xs hover:bg-slate-50 active:scale-98 transition flex items-center justify-center gap-2 text-sm">
+            <ScanQrCode class="w-4 h-4" />
+            <span>Scan QR Presensi</span>
+          </button>
+        </section>
 
-        <!-- STATS -->
-        <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
-
-          <div class="bg-white rounded-xl shadow-sm border p-5 hover:shadow-md transition">
-            <p class="text-sm text-gray-500">Event Diikuti</p>
-            <h2 class="text-3xl font-bold text-emerald-600">
+        <section class="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+          <div class="bg-white border border-slate-200/80 rounded-xl p-5 hover:border-slate-300 transition-colors">
+            <div class="flex justify-between items-center text-slate-400">
+              <span class="text-xs font-medium tracking-wide text-slate-500 uppercase">Event Diikuti</span>
+              <CalendarDays class="w-4 h-4" />
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 mt-3">
               {{ stats.joined_events ?? 0 }}
             </h2>
           </div>
 
-          <div class="bg-white rounded-xl shadow-sm border p-5 hover:shadow-md transition">
-            <p class="text-sm text-gray-500">Event Tersedia</p>
-            <h2 class="text-3xl font-bold text-blue-600">
+          <div class="bg-white border border-slate-200/80 rounded-xl p-5 hover:border-slate-300 transition-colors">
+            <div class="flex justify-between items-center text-slate-400">
+              <span class="text-xs font-medium tracking-wide text-slate-500 uppercase">Katalog Tersedia</span>
+              <Layers class="w-4 h-4" />
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 mt-3">
               {{ events.length ?? 0 }}
             </h2>
           </div>
 
-          <div class="bg-white rounded-xl shadow-sm border p-5 hover:shadow-md transition">
-            <p class="text-sm text-gray-500">Status Akun</p>
-            <h2 class="text-3xl font-bold text-gray-700">
-              Aktif
-            </h2>
+          <div class="bg-white border border-slate-200/80 rounded-xl p-5 hover:border-slate-300 transition-colors col-span-2 md:col-span-1">
+            <div class="flex justify-between items-center text-slate-400">
+              <span class="text-xs font-medium tracking-wide text-slate-500 uppercase">Akses Otentikasi</span>
+              <CheckCircle2 class="w-4 h-4 text-emerald-600" />
+            </div>
+            <div class="flex items-center gap-1.5 mt-3">
+              <h2 class="text-xl font-bold text-slate-800 tracking-tight capitalize">
+                {{ role }}
+              </h2>
+              <span class="text-[10px] font-bold bg-emerald-50 text-[#006633] px-1.5 py-0.5 rounded border border-emerald-200/50 uppercase">Verified</span>
+            </div>
           </div>
-
         </section>
 
-        <!-- CONTENT -->
-        <section class="bg-white rounded-2xl shadow-sm border p-6 space-y-6">
-
-          <!-- ROLE SECTION -->
-          <SuperAdminSection
-            v-if="role === 'superadmin'"
-            :events="events"
-            :stats="stats"
-          />
-
-          <AdminSection
-            v-else-if="role === 'admin'"
-            :events="events"
-            :stats="stats"
-          />
-
-          <UserSection
-            v-else
-            :events="events"
-            :my_events="myEvents"
-            :stats="stats"
-          />
-
+        <section class="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-xs">
+          <SuperAdminSection v-if="role === 'superadmin'" :events="events" :stats="stats" />
+          <AdminSection v-else-if="role === 'admin'" :events="events" :stats="stats" />
+          <UserSection v-else :events="events" :my_events="myEvents" :stats="stats" />
         </section>
 
       </div>
     </div>
-
   </AuthenticatedLayout>
-
-  
-<!-- FLYER MODAL -->
-<div
-  v-if="showFlyer"
-  class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md"
-  @click.self="showFlyer = false"
->
-  <div class="relative max-w-4xl w-full mx-4">
-
-    <button
-      @click="showFlyer = false"
-      class="absolute -top-10 right-0 text-white text-sm bg-white/10 px-3 py-1 rounded-lg hover:bg-white/20"
-    >
-      ✕ Tutup
-    </button>
-
-    <img
-      :src="flyerUrl"
-      class="w-full max-h-[85vh] object-contain rounded-2xl shadow-2xl border border-white/10"
-    />
-
-  </div>
-</div>
 </template>
-
-<style>
-@keyframes gradientMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.bg-gradient-animate {
-  background: linear-gradient(
-    -45deg,
-    #059669,
-    #10b981,
-    #34d399,
-    #14b8a6,
-    #0ea5e9,
-    #6366f1
-  );
-  background-size: 300% 300%;
-  animation: gradientMove 12s ease infinite;
-}
-</style>
