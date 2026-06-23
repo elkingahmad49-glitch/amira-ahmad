@@ -55,7 +55,7 @@ import {
           <div class="max-w-2xl">
             <div class="inline-flex items-center gap-1.5 text-xs font-semibold text-[#006633] bg-[#006633]/5 px-2.5 py-1 rounded-md mb-3 border border-[#006633]/10">
               <Sparkles class="w-3.5 h-3.5 text-[#D4AF37] fill-[#D4AF37]" /> SIMAKU Academic Hub
-            </div>
+            </div> 
             <h3 class="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900 leading-none">
               Assalamualaikum, {{ user.name }} 👋
             </h3>
